@@ -1,0 +1,8 @@
+.successful-message{
+  color: white;
+  background-color: green;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px;
+}

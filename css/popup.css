@@ -1,0 +1,25 @@
+.error-popup{
+  background-color: #c64747;
+}
+
+.success-popup{
+  background-color: green;
+}
+
+.wait-popup{
+  background-color: grey;
+}
+
+.popup{
+  text-align: right;
+  position: fixed;
+  min-width: 300px;
+  padding: 10px 20px;
+  color: white;
+  right: 5%;
+  left: 5%;
+  top: 5%;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  z-index: 3000;
+}

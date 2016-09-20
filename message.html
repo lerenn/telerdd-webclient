@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>TeleRDD - Poster un message</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="contrib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/app.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/popup.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/center-menu.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/message.css" media="all"/>
+  </head>
+  <body>
+    <div id="center-page">
+      <div id="messages-form" class="container center-menu" style="height: 300px">
+        <h3>Ecrivez votre message...</h3>
+        <textarea id="message" name="message" type="text" rows="3" class="form-control" placeholder="Entrez votre message" required></textarea>
+        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom (par défaut : 'Anonymous')">
+        <button class="btn btn-lg btn-default btn-block" onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+    <script src="contrib/jquery/jquery-3.1.0.min.js"></script>
+    <script src="contrib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/messages.js"></script>
+  </body>
+</html>

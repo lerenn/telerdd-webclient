@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>TeleRDD - Mur de messages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="contrib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/app.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/popup.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/wall.css" media="all"/>
+  </head>
+  <body>
+    <div id="update-status">
+      <div class="container">
+        Dernière mise à jour à <span>Never updated</span>
+        <button type="button" onclick="updateMessages()" class="btn btn-sm btn-default">Force refresh</button>
+      </div>
+    </div>
+    <div class="container">
+      <div id="messages"></div>
+      <button type="button" class="btn btn-lg btn-warning" style="width: 100%" onclick="loadMessages()">
+        Afficher plus de messages
+      </button>
+    </div>
+    <script src="contrib/jquery/jquery-3.1.0.min.js"></script>
+    <script src="contrib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="js/wall.js"></script>
+    <script>
+      loadMessages();
+      setInterval(updateMessages, 5000);
+    </script>
+  </body>
+</html>

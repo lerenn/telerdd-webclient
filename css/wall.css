@@ -1,0 +1,24 @@
+#messages{
+  margin-top: 30px;
+}
+
+.message-text {
+  font-weight: bold;
+}
+
+.message-infos{
+  color: grey;
+}
+
+#update-status{
+  width: 100%;
+  color: white;
+  background-color: black;
+  height: 40px;
+  padding-top: 8px;
+}
+
+#update-status button{
+  margin-top: -3px;
+  float: right;
+}

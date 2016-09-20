@@ -1,0 +1,27 @@
+#center-page{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-menu button{
+  width:100%;
+}
+
+.center-menu a:hover {
+  text-decoration: none;
+}
+
+.center-menu img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-menu{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
