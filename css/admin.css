@@ -2,10 +2,20 @@
   margin-top: 60px;
 }
 
-#dashboard-view{
+#settings-view{
   opacity: 0.33;
 }
 
 .message-status {
   color: white;
+}
+
+#boromir{
+  position: absolute;
+  margin: auto;
+  width:100%;
+  max-width: 500px;
+  top: 150px;
+  left: 0;
+  right: 0;
 }

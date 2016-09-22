@@ -18,6 +18,9 @@ function connect(){
     // Delete connection interface
     $("#connexion").fadeOut(1000);
     setTimeout(function(){ $("#connexion").remove(); }, 1000);
+
+    // Display first screen
+    changeView('moderation');
   }, { "username": g_username, "password": password, "type": parseInt(accountType)});
   waitPopup();
 }

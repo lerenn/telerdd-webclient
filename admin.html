@@ -23,54 +23,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a onclick="changeView('dashboard')">Dashboard</a></li>
-            <!-- <li><a onclick="changeView('bars')">Bars</a></li> -->
             <li><a onclick="changeView('moderation')">Modération</a></li>
+            <li><a onclick="changeView('settings')">Réglages</a></li>
             <li><a href="/wall.html" target="_BLANK">Voir le mur</a></li>
           </ul>
         </div>
       </div>
     </nav>
     <div id="admin-menu">
-      <div id="dashboard-view">
-        <div id="bars-column" class="col-lg-8 col-md-7">
-          <h2>Bars</h2>
-          <hr/>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Bar 1</h3>
-            </div>
-            <div class="panel-body">
-              <p>Niveau de bière</p>
-              <div class="progress">
-                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="moderation-column" class="col-lg-4 col-md-5">
-          <h2>Messages</h2>
-          <hr/>
-          <table class="table">
-              <thead>
-                <tr>
-                  <th>Message</th>
-                  <th>Username</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Mark</td>
-                  <td>Salut à tous</td>
-                </tr>
-                <tr>
-                  <td>Roger</td>
-                  <td>Plop</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-      </div>
       <div id="moderation-view" class="container" style="display: none">
         <h2>Modération</h2>
         <hr/>
@@ -91,6 +51,11 @@
             Afficher plus de messages
           </button>
       </div>
+      <div id="settings-view" class="container" style="display: none">
+        <h2>Réglages</h2>
+        <hr/>
+        <img src="img/boromir.png" id="boromir"></img>
+      </div>
     </div>
     <div id="connexion" class="type-1">
       <div id="connect-panel" class="form-signin">
@@ -107,12 +72,8 @@
     <script src="config/config.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/requests.js"></script>
-    <script src="js/connexion.js"></script>
+    <script src="js/admin/connexion.js"></script>
     <script src="js/admin/admin.js"></script>
     <script src="js/admin/pending-messages.js"></script>
-    <!-- <script>
-      g_username = "admin";
-      g_token = "52fdfc072182654f163f5f0f9a621d729566c74d";
-    </script> -->
   </body>
 </html>
