@@ -1,5 +1,7 @@
 function apiRequest(url, callback, args){
-  var posting = $.post(url, args);
+  var apiURL = getConfig().apiURL;
+
+  var posting = $.post(apiURL+url, args);
 
   posting.done(function(data) {
     var obj = jQuery.parseJSON(data);

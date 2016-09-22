@@ -1,0 +1,6 @@
+web:
+  image: lerenn/nginx-static-website
+  ports:
+    - "80:80"
+  volumes:
+    - ./:/var/www/html:z
