@@ -4,7 +4,7 @@ var g_messages_oldestid = 10000000;
 
 // Functions
 function checkNewMessages(){
-    apiRequest("/messages/next", function(obj){
+    apiRequest("GET", "/messages/next", function(obj){
     if (typeof obj.messages !== 'undefined'){
       displayMessages_callback(obj.messages, "top");
     }
@@ -13,7 +13,7 @@ function checkNewMessages(){
 
 // Functions
 function loadMessages(){
-    apiRequest("/messages/previous", function(obj){
+    apiRequest("GET", "/messages/previous", function(obj){
     if (typeof obj.messages !== 'undefined'){
       displayMessages_callback(obj.messages, "bottom");
     }
@@ -77,7 +77,7 @@ function changeStatus(id, status){
 }
 
 function accept(id){
-  apiRequest("/messages/status", function(obj){
+  apiRequest("PUT", "/messages/message", function(obj){
     if (obj.response == "OK"){
       successPopup("Message "+id+" accepted");
       changeStatus(id, "accepted");
@@ -88,7 +88,7 @@ function accept(id){
 }
 
 function refuse(id){
-  apiRequest("/messages/status", function(obj){
+  apiRequest("PUT", "/messages/message", function(obj){
     if (obj.response == "OK"){
       successPopup("Message "+id+" refused");
       changeStatus(id, "refused");

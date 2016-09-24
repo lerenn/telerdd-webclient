@@ -9,7 +9,7 @@ function connect(){
   // Hash password
   password = md5(password);
 
-  apiRequest("/account/connect", function(obj){
+  apiRequest("GET", "/account/token", function(obj){
     successPopup("Connection successful");
 
     // Get token

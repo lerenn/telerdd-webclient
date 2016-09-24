@@ -1,15 +1,18 @@
-function apiRequest(url, callback, args){
+function apiRequest(type, url, callback, args){
   var apiURL = getConfig().apiURL;
 
-  var posting = $.post(apiURL+url, args);
-
-  posting.done(function(data) {
-    var obj = jQuery.parseJSON(data);
+  $.ajax({
+    url: apiURL+url,
+    type: type,
+    data: args,
+  }).done(function(obj) {
     if(typeof obj.error !== 'undefined'){
-      errorPopup(obj.error);
+      errorPopup(obj.error+" (URL: "+url+")");
     } else {
       callback(obj);
     }
+  }).fail(function() {
+    errorPopup("Can't reach API");
   });
 }
 
