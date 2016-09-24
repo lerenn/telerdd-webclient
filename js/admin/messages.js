@@ -97,3 +97,9 @@ function refuse(id){
     }
   },{"id": id, "status": "refused", "username": g_username, "token": g_token});
 }
+
+function resetMessages(){
+  g_messages_lastid = -1;
+  g_messages_oldestid = 10000000;
+  $("#messages").empty();
+}

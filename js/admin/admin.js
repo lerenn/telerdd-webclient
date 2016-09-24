@@ -19,9 +19,7 @@ function activate(view){
 
 function deactivate(view){
   if(view == "moderation"){
-    g_pending_messages_lastid = 0;
-    g_pending_messages_firstid = -1;
-    $("#messages").empty();
+    resetMessages();
     clearInterval(g_checkNewMessagesIntervale);
   }
 }
