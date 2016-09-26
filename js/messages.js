@@ -35,18 +35,18 @@ function loadMessages(){
 function checkExistingMessages(){
   apiRequest("GET", "/v1/messages", function(obj){
     // Check if everyone of them is displayed
-    for (var i = 0; obj.id[i] < g_messages_lastid; i++){
-      if(g_messages_ids.indexOf(obj.id[i])==-1){
+    for (var i = 0; obj.list[i] < g_messages_lastid; i++){
+      if(g_messages_ids.indexOf(obj.list[i])==-1){
         // If not, display him just before it predecessor
-        previousID = obj.id[i-1];
+        previousID = obj.list[i-1];
         apiRequest("GET", "/v1/messages/message", function(obj){
           displayMessage(obj, previousID);
-        }, { "id": obj.id[i]});
+        }, { "id": obj.list[i]});
       }
     }
     // Check if one has been refused
     for (var i = 0; i < g_messages_ids.length; i++){
-      if(obj.id.indexOf(g_messages_ids[i])==-1){
+      if(obj.list.indexOf(g_messages_ids[i])==-1){
         id = g_messages_ids[i];
         $("#message-"+id).remove();
         g_messages_ids.splice(i, 1);
