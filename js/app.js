@@ -29,14 +29,32 @@ TeleRDD.messages = {
   firstId: 0,
   lastId: 0,
   ids: [],
+  content: [],
   init: function(){
-    TeleRDD.messages.update();
-    setInterval(TeleRDD.messages.update, 5000);
+    // Init IDs
+    TeleRDD.api.request("GET", "/messages", function(obj){
+        TeleRDD.messages.ids = obj.messages;
+        TeleRDD.messages.lastId = obj.messages[obj.messages.length-1];
+    });
+    // TODO
+    // Display messages
+    TeleRDD.messages.updateStatus();
+    setInterval(TeleRDD.messages.checkNewMessages, 5000);
     setInterval(TeleRDD.messages.check, 30000);
   },
-  update: function(){
-    alert("update");
-    // TODO
+  checkNewMessages: function(){ // checkNewMessages
+    TeleRDD.api.request("GET", "/messages", function(obj){
+      for(var i = 0; i < obj.messages.length; i++){ // For each ids in response
+        for(var j = 0; j < TeleRDD.messages.ids; j++){ // For each message already present
+          if (TeleRDD.messages.ids[j] == obj.messages[i]){ // If already present
+            break;
+          } else if (TeleRDD.messages.ids[j] > obj.messages[i]){ // If not present
+            TeleRDD.messages.ids.insert(j, obj.messages[i]);
+            break;
+          }
+        }
+      }
+    }, { "start": TeleRDD.messages.lastId});
     TeleRDD.messages.updateStatus();
   },
   check: function(){
