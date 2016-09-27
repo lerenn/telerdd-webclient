@@ -13,12 +13,12 @@
     <div id="update-status">
       <div class="container">
         Dernière mise à jour à <span>Never updated</span>
-        <button type="button" onclick="updateMessages()" class="btn btn-sm btn-default">Force refresh</button>
+        <button type="button" onclick="TeleRDD.messages.update(); TeleRDD.messages.check();" class="btn btn-sm btn-default">Force refresh</button>
       </div>
     </div>
     <div class="container">
       <div id="messages"></div>
-      <button type="button" class="btn btn-lg btn-warning" style="width: 100%" onclick="loadMessages()">
+      <button type="button" class="btn btn-lg btn-warning" style="width: 100%" onclick="TeleRDD.messages.more()">
         Afficher plus de messages
       </button>
     </div>
@@ -26,12 +26,8 @@
     <script src="contrib/bootstrap/js/bootstrap.min.js"></script>
     <script src="config/config.js"></script>
     <script src="js/popup.js"></script>
-    <script src="js/requests.js"></script>
-    <script src="js/messages.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/wall.js"></script>
-    <script>
-      loadMessages();
-      setInterval(updateMessages, 5000);
-    </script>
+    <script>TeleRDD.messages.init()</script>
   </body>
 </html>

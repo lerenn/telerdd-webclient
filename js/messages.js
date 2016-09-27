@@ -9,7 +9,7 @@ function updateMessages(){
 }
 
 function checkNewMessages(){
-    apiRequest("GET", "/v1/messages/next", function(obj){
+    apiRequest("GET", "/messages/next", function(obj){
     if (typeof obj.messages !== 'undefined'){
       var messagesNbr = obj.messages.length;
       for (var i = 0; i < messagesNbr; i++) {
@@ -21,7 +21,7 @@ function checkNewMessages(){
 }
 
 function loadMessages(){
-    apiRequest("GET", "/v1/messages/previous", function(obj){
+    apiRequest("GET", "/messages/previous", function(obj){
     if (typeof obj.messages !== 'undefined'){
       var messagesNbr = obj.messages.length;
       for (var i = 0; i < messagesNbr; i++) {
@@ -33,13 +33,13 @@ function loadMessages(){
 }
 
 function checkExistingMessages(){
-  apiRequest("GET", "/v1/messages", function(obj){
+  apiRequest("GET", "/messages", function(obj){
     // Check if everyone of them is displayed
     for (var i = 0; obj.list[i] < g_messages_lastid; i++){
       if(g_messages_ids.indexOf(obj.list[i])==-1){
         // If not, display him just before it predecessor
         previousID = obj.list[i-1];
-        apiRequest("GET", "/v1/messages/message", function(obj){
+        apiRequest("GET", "/messages/message", function(obj){
           displayMessage(obj, previousID);
         }, { "id": obj.list[i]});
       }
@@ -113,7 +113,7 @@ function displayMessage(message, place){
 function sendMessage(){
   message = $("#message").val();
   name = $("#name").val();
-  apiRequest("POST", "/v1/messages/message", function(obj){
+  apiRequest("POST", "/messages", function(obj){
     if (obj.response == "OK"){
       messageSent();
     } else{
