@@ -1,21 +1,27 @@
-var wall_background_image;
-var wall_background_activated;
-
-function doc_keyUp(e) {
-    if (e.ctrlKey && e.altKey && e.keyCode == 66) {
-      if(wall_background_activated){
-        $("body").css("background-image", "none");
-        wall_background_activated = false;
-      } else {
-        $("body").css("background-image", wall_background_image);
-        wall_background_activated = true;
-      }
-    }
+function Wall(api){
+  this.api = api;
 }
 
-// Get image
-wall_background_image = $("body").css("background-image");
-wall_background_activated = true;
+Wall.prototype.displayMessage = function(id, previous, firstId){
+  var html = "<div id=\"message-"+id+"\" class=\"message panel panel-body\">";
+  html += 'Loading message...';
+  html += '</div>';
+  if (id > firstId){
+    $("#message-"+previous).before(html);
+  } else {
+    $("#messages").append(html);
+  }
+  // Download message
+  this.api.request("GET", "/messages/message", function(msg){
+    var html = "<div class=\"message-text col-md-10 col-sm-9 col-xs-12\">"+replaceSpecialChars(msg.text)+"</div>";
+    html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">par "+msg.name+"<br/>"+msg.time+"</div>";
+    $("#message-"+id).empty().append(html);
+  }, { "id": id});
+};
 
-// register the handle
-document.addEventListener('keyup', doc_keyUp, false);
+Wall.prototype.updateStatus = function(){
+  var d = new Date();
+  $("#update-status span").empty().append(
+    d.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1")
+  );
+};

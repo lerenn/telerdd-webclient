@@ -1,140 +1,121 @@
-// Variables
-var g_messages_lastid = 0;
-var g_messages_oldestid = 10000000;
-var g_messages_ids = [];
+function Messages(api, view, lotSize, msgStatus){
+  // Properties
+  this.firstId = 0;
+  this.lastId = 0;
+  this.list = [];
+  this.api = api;
+  this.lotSize = lotSize;
+  this.view = view;
+  this.msgStatus = msgStatus;
 
-function updateMessages(){
-  checkNewMessages();
-  setTimeout(checkExistingMessages, 1000);
-}
+  // Init object
+  var self = this;
+  api.request("GET", "/messages", function(obj){
+      self.list = obj.messages;
 
-function checkNewMessages(){
-    apiRequest("GET", "/messages/next", function(obj){
-    if (typeof obj.messages !== 'undefined'){
-      var messagesNbr = obj.messages.length;
-      for (var i = 0; i < messagesNbr; i++) {
-          displayMessage(obj.messages[i], "top");
-      }
-    }
-  }, { "id": g_messages_lastid, "offset": 10});
-  updateStatus();
-}
-
-function loadMessages(){
-    apiRequest("GET", "/messages/previous", function(obj){
-    if (typeof obj.messages !== 'undefined'){
-      var messagesNbr = obj.messages.length;
-      for (var i = 0; i < messagesNbr; i++) {
-          displayMessage(obj.messages[i], "bottom");
-      }
-    }
-  }, { "id": g_messages_oldestid, "offset": 10});
-  updateStatus();
-}
-
-function checkExistingMessages(){
-  apiRequest("GET", "/messages", function(obj){
-    // Check if everyone of them is displayed
-    for (var i = 0; obj.list[i] < g_messages_lastid; i++){
-      if(g_messages_ids.indexOf(obj.list[i])==-1){
-        // If not, display him just before it predecessor
-        previousID = obj.list[i-1];
-        apiRequest("GET", "/messages/message", function(obj){
-          displayMessage(obj, previousID);
-        }, { "id": obj.list[i]});
-      }
-    }
-    // Check if one has been refused
-    for (var i = 0; i < g_messages_ids.length; i++){
-      if(obj.list.indexOf(g_messages_ids[i])==-1){
-        id = g_messages_ids[i];
-        $("#message-"+id).remove();
-        g_messages_ids.splice(i, 1);
-
-        // Check if it's the last
-        if (id==g_messages_lastid){
-          max = Math.max.apply( Math, g_messages_ids );
-          if (isFinite(max)==false){
-            g_messages_lastid = 0;
-          } else {
-            g_messages_lastid = max;
-          }
-        }
-
-        // Check if it's the first
-        if (id==g_messages_oldestid){
-          min = Math.min.apply( Math, g_messages_ids );
-          if (isFinite(min)==false){
-            g_messages_oldestid = 10000000;
-          } else {
-            g_messages_oldestid = min;
-          }
+      if (obj.messages.length > 0){
+        // Set last message
+        self.lastId = obj.messages[obj.messages.length-1];
+        // Set the first message
+        var lotSize = self.lotSize;
+        if (obj.messages.length > lotSize){
+          self.firstId = obj.messages[obj.messages.length-lotSize];
         }
       }
+
+      // Display messages
+      self.updateDisplay();
+
+      // Update Status
+      self.view.updateStatus();
+  }, {"status": self.msgStatus});
+  setInterval(function(){self.checkNewMsg();}, 5000);
+  setInterval(function(){self.updateList();}, 30000);
+};
+
+Messages.prototype.updateDisplay = function(){
+  c = this.list.indexOf(this.firstId);
+  for(i = this.firstId; i <= this.lastId; i++){
+    var obj = $("#message-" + i);
+
+    if(this.list.indexOf(i) != -1){ // Check if its in the array
+      if(obj.length == 0){ // If it doesn't exist, create it
+        if(i > this.firstId){
+          this.view.displayMessage(i, this.list[c-1], this.firstId);
+        } else{
+          this.view.displayMessage(i, 0, this.firstId);
+        }
+      }
+      c++;
+    } else if(obj.length != 0 && this.list.indexOf(i) == -1){ // If its not present in array, erase it if it exist on page
+      total = this.list.length;
+      // If its the first id
+      if(i == this.lastId){
+        if(total > 1){
+          this.lastId = this.list[total-2];
+        } else {
+          this.lastId = 0;
+        }
+      }
+      // If its the last id
+      if(i == this.firstId){
+        if(total > 1){
+          this.firstId = this.list[1];
+        } else {
+          this.firstId = 0;
+        }
+      }
+      obj.remove();
     }
-  }, { "start": g_messages_oldestid, g_messages_lastid: 10});
-}
-
-function displayMessage(message, place){
-  // Check name
-  var name = message.name;
-  if (name == "") {
-    name = "Anonymous";
   }
+};
 
-  var html = "<div id=\"message-"+message.id+"\" class=\"message panel panel-body\">";
-  html += "<div class=\"message-text col-md-10 col-sm-9 col-xs-12\">"+replaceSpecialChars(message.text)+"</div>";
-  html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">par "+message.name+"<br/>"+message.time+"</div>";
-  html+= "</div>";
 
-  // Place message
-  if (place == "bottom"){
-    $("#messages").append(html);
-  } else if (place == "top"){
-    $("#messages").prepend(html);
-  } else {
-    $("#message-"+place).before(html);
-  }
+Messages.prototype.checkNewMsg = function(){ // checkNewMessages
+  var self = this;
+  this.api.request("GET", "/messages", function(obj){
+    // Add new messages
+    if(obj.messages != ""){
+      for(i = 0; i < obj.messages.length; i++){
+        self.list.push(obj.messages[i]);
+      }
 
-  id = parseInt(message.id);
-  // Set g_messages_lastid
-  if (g_messages_lastid < id){
-    g_messages_lastid = id;
-  }
-  // Set g_messages_oldestid
-  if (g_messages_oldestid > id){
-    g_messages_oldestid = id;
-  }
+      // Update last id
+      len = self.list.length;
+      if(len > 0){
+        self.lastId = self.list[len-1];
+      }
 
-  // Add to array of ids
-  g_messages_ids.push(id);
-}
-
-function sendMessage(){
-  message = $("#message").val();
-  name = $("#name").val();
-  apiRequest("POST", "/messages", function(obj){
-    if (obj.response == "OK"){
-      messageSent();
-    } else{
-      errorPopup(obj.error);
+      // Display messages
+      self.updateDisplay();
     }
-  }, { "message": message, "name": name});
-}
+    self.view.updateStatus();
+  }, { "start": self.lastId+1, "status": self.msgStatus});
+};
 
-function messageSent(){
-  $("#messages-form").empty().append(
-    "<div class=\"successful-message\">" +
-    "<h3>Votre message a été envoyé avec succès</h3>" +
-    "<p>Celui-ci sera affiché après validation d'un de nos modérateurs</p>" +
-    "</div>"
-  );
-  setTimeout(function(){document.location.href="/"}, 5000)
-}
+Messages.prototype.updateList = function(){
+  var self = this;
+  this.api.request("GET", "/messages", function(obj){
+      self.list = obj.messages;
+      self.updateDisplay();
+  }, {"status": self.msgStatus});
+};
 
-function updateStatus(){
-  var d = new Date();
-  $("#update-status span").empty().append(
-    d.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1")
-  );
+Messages.prototype.displayMore = function(){
+  // Get the message id at one lot before the actual first
+  first = this.list.indexOf(this.firstId) - this.lotSize;
+  if(first < 0){
+    first = 0;
+  }
+
+  // Update first
+  this.firstId = this.list[first];
+
+  // Display them
+  this.updateDisplay();
+};
+
+// Functions
+function replaceSpecialChars(orig){
+  return orig.replace(/\n/g, "<br/>");
 }

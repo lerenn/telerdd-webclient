@@ -1,5 +1,4 @@
 function Config(){
-  return {
-    apiURL: "http://127.0.0.1:8080" // No "/" at the end
-  };
-}
+  this.apiURL = "http://127.0.0.1:8080"; // API url (No "/" at the end)
+  this.messagesLot = 5; // Number of messages by loading
+};

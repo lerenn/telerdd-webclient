@@ -64,18 +64,6 @@ displayMessages_callback = function(messages, place){
   }
 };
 
-function changeStatus(id, status){
-  html = "<span class=\"label label-default\">Inconnu</span>"
-  if (status == "accepted"){
-    html = "<span class=\"label label-success\">Accepté</span>"
-  } else if (status == "pending"){
-    html = "<span class=\"label label-warning\">En attente</span>"
-  } else if (status == "refused"){
-    html = "<span class=\"label label-danger\">Refusé</span>"
-  }
-  $("#message-"+id+" .message-status").empty().append("."+html); // Add point for alignment
-}
-
 function accept(id){
   apiRequest("PUT", "/messages/message", function(obj){
     if (obj.response == "OK"){

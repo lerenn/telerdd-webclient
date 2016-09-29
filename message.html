@@ -16,14 +16,21 @@
         <h3>Ecrivez votre message...</h3>
         <textarea id="message" name="message" type="text" rows="3" class="form-control" placeholder="Entrez votre message" required></textarea>
         <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom (par défaut : 'Anonymous')">
-        <button class="btn btn-lg btn-default btn-block" onclick="sendMessage()">Envoyer</button>
+        <button class="btn btn-lg btn-default btn-block" onclick="msg.send()">Envoyer</button>
       </div>
     </div>
+    <!-- Contrib -->
     <script src="contrib/jquery/jquery-3.1.0.min.js"></script>
     <script src="contrib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Application -->
     <script src="config/config.js"></script>
     <script src="js/popup.js"></script>
-    <script src="js/requests.js"></script>
-    <script src="js/messages.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/message.js"></script>
+    <script>
+      config = new Config();
+      api = new API(config.apiURL);
+      msg = new Message(api);
+    </script>
   </body>
 </html>
