@@ -20,3 +20,14 @@ Message.prototype.send = function(){
     }
   }, { "message": message, "name": name});
 };
+
+// Events
+$('#photo button').click(function(){
+  $('#photo input').click();
+
+  $('#photo input').on('input', function() {
+    if($(this).val() != ""){
+      $('#photo button').removeClass("btn-default").addClass("btn-success");
+    }
+  });
+});

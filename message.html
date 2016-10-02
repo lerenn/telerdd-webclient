@@ -14,7 +14,17 @@
     <div id="center-page">
       <div id="messages-form" class="container center-menu" style="height: 300px">
         <h3>Ecrivez votre message...</h3>
-        <textarea id="message" name="message" type="text" rows="3" class="form-control" placeholder="Entrez votre message" required></textarea>
+        <div class="row">
+          <div id="photo" class="col-md-1 col-sm-2 col-xs-12">
+            <button type="button" class="btn btn-lg btn-default">
+              <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+            </button>
+            <input type="file" name="photo" accept="image/*" capture="camera" style="display: none;">
+          </div>
+          <div class="col-md-11 col-sm-10 col-xs-12">
+            <textarea id="message" name="message" type="text" rows="3" class="form-control" placeholder="Entrez votre message" required></textarea>
+          </div>
+        </div>
         <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom (par défaut : 'Anonymous')">
         <button class="btn btn-lg btn-default btn-block" onclick="msg.send()">Envoyer</button>
       </div>
