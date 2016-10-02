@@ -27,7 +27,7 @@ $('#photo button').click(function(){
 
   $('#photo input').on('input', function() {
     if($(this).val() != ""){
-      $('#photo button').removeClass("btn-default").addClass("btn-success");
+      $('#photo button').removeClass("btn-default").addClass("btn-warning");
     }
   });
 });
