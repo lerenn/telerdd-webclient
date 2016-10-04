@@ -19,7 +19,7 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
 
   //Download message
   var self = this;
-  this.api.request("GET", "/messages/message", function(msg){
+  this.api.request("GET", "/messages/"+id, function(msg){
     // Display message content
     html = "<td>"+msg.id+"</td>";
     html += "<td>"+replaceSpecialChars(msg.text)+"</td>"
@@ -33,7 +33,7 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
 
     // Change message status
     self.changeStatus(msg.id, msg.status);
-  }, { "id": id});
+  });
 }
 
 Admin.prototype.changeStatus = function(id, status){
@@ -50,26 +50,26 @@ Admin.prototype.changeStatus = function(id, status){
 
 Admin.prototype.accept = function(id){
   var self = this;
-  this.api.request("PUT", "/messages/message", function(obj){
+  this.api.request("PUT", "/messages/"+id, function(obj){
     if (obj.response == "OK"){
       successPopup("Message "+id+" accepted");
       self.changeStatus(id, "accepted");
     } else{
       errorPopup(obj.error);
     }
-  },{"id": id, "status": "accepted", "username": this.api.username, "token": this.api.token});
+  },{"status": "accepted", "username": this.api.username, "token": this.api.token});
 }
 
 Admin.prototype.refuse = function(id){
   var self = this;
-  this.api.request("PUT", "/messages/message", function(obj){
+  this.api.request("PUT", "/messages/"+id, function(obj){
     if (obj.response == "OK"){
       successPopup("Message "+id+" refused");
       self.changeStatus(id, "refused");
     } else{
       errorPopup(obj.error);
     }
-  },{"id": id, "status": "refused", "username": this.api.username, "token": this.api.token});
+  },{"status": "refused", "username": this.api.username, "token": this.api.token});
 }
 
 Admin.prototype.updateStatus = function(){

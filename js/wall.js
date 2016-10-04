@@ -12,11 +12,11 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     $("#messages").append(html);
   }
   // Download message
-  this.api.request("GET", "/messages/message", function(msg){
+  this.api.request("GET", "/messages/"+id, function(msg){
     var html = "<div class=\"message-text col-md-10 col-sm-9 col-xs-12\">"+replaceSpecialChars(msg.text)+"</div>";
     html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">par "+msg.name+"<br/>"+msg.time+"</div>";
     $("#message-"+id).empty().append(html);
-  }, { "id": id});
+  });
 };
 
 Wall.prototype.updateStatus = function(){
