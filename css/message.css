@@ -1,10 +1,21 @@
 .successful-message{
-  color: white;
   background-color: green;
+}
+
+.waiting-message{
+  background-color: grey;
+}
+
+.message{
+  color: white;
   -moz-border-radius: 5px;
   border-radius: 5px;
   text-align: center;
   padding: 20px;
+}
+
+.message h3{
+  margin-top: 10px;
 }
 
 #photo, .row, input{
