@@ -13,9 +13,23 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
   }
   // Download message
   this.api.request("GET", "/messages/"+id, function(msg){
-    var html = "<div class=\"message-text col-md-10 col-sm-9 col-xs-12\">"+replaceSpecialChars(msg.text)+"</div>";
-    html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">par "+msg.name+"<br/>"+msg.time+"</div>";
+    var html = "<div class=\"message-text col-md-10 col-sm-9 col-xs-12\"><div>"+replaceSpecialChars(msg.text)+"</div></div>";
+    html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">par <b>"+msg.name+"</b><br/>"+msg.time+"</div>";
     $("#message-"+id).empty().append(html);
+
+    // === ADAPT TEXT SIZE
+    // Get original size
+    var fontSize = parseInt($("#message-"+id+" .message-text div").css('font-size'));
+    // Adapt size until its too big
+    while( ($("#message-"+id+" .message-text div").width() < $("#message-"+id+" .message-text").width()  &&
+           $("#message-"+id+" .message-text").height() < $("#message-"+id+"").height() && fontSize < 31) || fontSize < 17
+            ) {
+        fontSize += 1;
+        $("#message-"+id+" .message-text div").css('font-size', fontSize + "px" );
+    }
+    // Readapt under the "too big size"
+    $("#message-"+id+" .message-text div").css('font-size', (fontSize - 1) + "px" );
+    // === END ADAPT
   });
 };
 
