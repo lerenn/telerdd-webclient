@@ -21,9 +21,8 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     // Get original size
     var fontSize = parseInt($("#message-"+id+" .message-text div").css('font-size'));
     // Adapt size until its too big
-    while( ($("#message-"+id+" .message-text div").width() < $("#message-"+id+" .message-text").width()  &&
-           $("#message-"+id+" .message-text").height() < $("#message-"+id+"").height() && fontSize < 31) || fontSize < 17
-            ) {
+    while( ($("#message-"+id+" .message-text div").width() < $("#message-"+id+" .message-text").width() && fontSize < 37)
+            || fontSize < 17) {
         fontSize += 1;
         $("#message-"+id+" .message-text div").css('font-size', fontSize + "px" );
     }
