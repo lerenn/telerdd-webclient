@@ -20,6 +20,8 @@ function Messages(api, view, lotSize, msgStatus){
         var lotSize = self.lotSize;
         if (obj.messages.length > lotSize){
           self.firstId = obj.messages[obj.messages.length-lotSize];
+        } else {
+          self.firstId = obj.messages[0];
         }
       }
 
