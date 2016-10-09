@@ -10,10 +10,16 @@
     <link rel="stylesheet" type="text/css" href="css/wall.css" media="all"/>
   </head>
   <body>
-    <div id="update-status">
+    <div id="update-bar">
       <div class="container">
-        Dernière mise à jour à <span>Never updated</span>
-        <button type="button" onclick="messages.checkNewMsg(); messages.updateList();" class="btn btn-sm btn-default">Force refresh</button>
+        <div id="update-text">
+          Mis à jour à <span class="time">Never updated</span>
+        </div>
+        <div id="update-button">
+          <button type="button" class="btn btn-sm btn-default">
+            .<span class="glyphicon glyphicon-refresh"></span>.
+          </button>
+        </div>
       </div>
     </div>
     <div class="container">
@@ -38,6 +44,11 @@
       api = new API(config.apiURL);
       wall = new Wall(api);
       messages = new Messages(api, wall, config.messagesLot, "accepted");
+
+      $('#update-button button').click(function(){
+        messages.checkNewMsg();
+        messages.updateList();
+      });
     </script>
   </body>
 </html>

@@ -1,28 +1,65 @@
+/* Messages */
+/* ---------------------------------------------------------------------------*/
+
 #messages{
   margin-top: 30px;
 }
 
+.message{
+  display: flex;
+}
+
 .message-text {
   font-weight: bold;
+  flex-grow: 1;
 }
 
 .message-text div{
-  display: inline-block
+  display: inline-block;
 }
 
 .message-infos{
   color: grey;
 }
 
-#update-status{
+.message-author{
+  white-space: nowrap;
+}
+
+/* Update bar */
+/* ---------------------------------------------------------------------------*/
+
+#update-bar{
   width: 100%;
   color: white;
   background-color: black;
   height: 40px;
-  padding-top: 8px;
+  /*padding-top: 8px;*/
 }
 
-#update-status button{
-  margin-top: -3px;
-  float: right;
+#update-bar .container {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#update-text{
+  padding-bottom: 4px;
+  align-self: center;
+  flex-grow: 1;
+}
+
+#update-button{
+  text-align: right;
+  align-self: center;
+  flex-grow: 1;
+}
+
+#update-button button{
+  color: white;
+}
+
+#update-button span{
+  color: black
 }
