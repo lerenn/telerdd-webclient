@@ -23,6 +23,12 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
     // Display message content
     html = "<td>"+msg.id+"</td>";
     html += "<td>"+replaceSpecialChars(msg.text)+"</td>"
+    if(msg.img == "true"){
+      html += "<td class='img-thumb'><button type='button' class='btn btn-xs btn-default'>Loading...</button></td>";
+      self.displayImage(msg.id);
+    } else {
+      html += "<td><button disabled='disabled' type='button' class='btn btn-xs btn-default'>No image</button></td>";
+    }
     html += "<td>"+msg.name+"</td>";
     html += "<td class=\"message-status\"></td>"
     html += '<td>';
@@ -33,6 +39,15 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
 
     // Change message status
     self.changeStatus(msg.id, msg.status);
+  });
+}
+
+Admin.prototype.displayImage = function(msg_id){
+  var self = this;
+  this.api.request("GET", "/messages/"+msg_id+"/image", function(msg){
+    $("#message-"+msg_id+" .img-thumb").empty().append("<a href=\""+msg.img+"\" data-lightbox=\"lightbox\">"
+      + "<button type='button' class='btn btn-xs btn-success'>Image</button>"
+      + "</a>");
   });
 }
 
