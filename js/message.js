@@ -1,7 +1,6 @@
 function Message(api){
   this.api = api;
   this.reader = new FileReader();
-  this.img = "";
 }
 
 Message.prototype.responseOK = function(){
@@ -28,26 +27,24 @@ Message.prototype.send = function(){
     "</div>"
   );
 
+  // Prepare callback
   var self = this;
-  this.api.request("POST", "/messages", function(obj){
-    // Get image
-    var file = document.querySelector('input[type=file]').files[0];
+  var callback = function(obj){
+    self.responseOK();
+  };
 
-    // If there is an image, send it
-    if(typeof obj.id !== 'undefined' && img != ""){
-      // Prepare image load
-      self.reader.addEventListener("load", function () {
-        self.img = self.reader.result;
-        self.api.request("POST", "/messages/"+obj.id+"/image", function(obj){
-          self.responseOK();
-        }, {"image": self.img});
-      }, false);
-      // Image load
-      self.reader.readAsDataURL(file);
-    } else {
-      self.responseOK();
-    }
-  }, { "message": message, "name": name});
+  // If there is an image, send it
+  if(img != ""){
+    // Prepare for image loading and send request
+    self.reader.addEventListener("load", function () {
+      self.api.request("POST", "/messages", callback, { "message": message, "name": name, "image": self.reader.result});
+    }, false);
+    // Image loading
+    var file = document.querySelector('input[type=file]').files[0];
+    self.reader.readAsDataURL(file);
+  } else {
+    self.api.request("POST", "/messages", callback, { "message": message, "name": name });
+  }
 };
 
 // Events
