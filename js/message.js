@@ -9,9 +9,11 @@ Message.prototype.responseOK = function(){
     "<div class=\"message successful-message\">" +
     "<h3>Votre message a été envoyé avec succès</h3>" +
     "<p>Celui-ci sera affiché après validation d'un de nos modérateurs</p>" +
+    "<a href=\"/\">" +
+    "<button type=\"button\" class=\"btn btn-sm btn-default\">Retourner à l'accueil</button>" +
+    "</a>" +
     "</div>"
   );
-  setTimeout(function(){document.location.href="/"}, 5000);
 }
 
 Message.prototype.send = function(){
