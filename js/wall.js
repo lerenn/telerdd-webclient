@@ -38,6 +38,9 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     }
     // Readapt under the "too big size"
     $("#message-"+id+" .message-text div").css('font-size', (fontSize - 1) + "px" );
+
+    // Adapt text
+    $("#message-"+id+" .message-text div").css('display', 'block').css('word-break', 'break-all');
     // === END ADAPT
   });
 };
