@@ -8,9 +8,7 @@ Admin.prototype.changeView = function(view){
 }
 
 Admin.prototype.displayMessage = function(id, previous, firstId){
-  var html = "<tr id=\"message-"+id+"\">";
-  html += '<td colspan=5>Loading message...</td>';
-  html += '</tr>';
+  var html = "<div id=\"message-"+id+"\" class=\"row\">Loading message...</div><hr/>";
   if (id > firstId){
     $("#message-"+previous).before(html);
   } else {
@@ -20,21 +18,26 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
   //Download message
   var self = this;
   this.api.request("GET", "/messages/"+id, function(msg){
+    var text = replaceSpecialChars(msg.text);
+    if (text.length == 0) {
+      text = "[No text given]";
+    }
+
     // Display message content
-    html = "<td>"+msg.id+"</td>";
-    html += "<td>"+replaceSpecialChars(msg.text)+"</td>"
+    html = "<div class=\"col-md-1 message-id\"><b>"+msg.id+"</b></div>";
+    html += "<div class=\"col-md-6 message-text\">"+text+"</div>"
     if(msg.img == "true"){
-      html += "<td class='img-thumb'><button type='button' class='btn btn-xs btn-default'>Loading...</button></td>";
+      html += "<div class='img-link col-md-1 message-img'><button type='button' class='btn btn-xs btn-default'>Loading...</button></div>";
       self.displayImage(msg.id);
     } else {
-      html += "<td><button disabled='disabled' type='button' class='btn btn-xs btn-default'>No image</button></td>";
+      html += "<div class=\"col-md-1 message-img\"><button disabled='disabled' type='button' class='btn btn-xs btn-default'>No image</button></div>";
     }
-    html += "<td>"+msg.name+"</td>";
-    html += "<td class=\"message-status\"></td>"
-    html += '<td>';
+    html += "<div class=\"col-md-1 message-author\">"+msg.name+"</div>";
+    html += "<div class=\"col-md-1 message-status\"></div>"
+    html += '<div class=\"col-md-2 message-actions\">';
     html += '<a onclick="admin.accept('+msg.id+')"><button type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></a> ';
     html += '<a onclick="admin.refuse('+msg.id+')"><button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></a>';
-    html += '</td>';
+    html += '</div>';
     $("#message-"+msg.id).empty().append(html);
 
     // Change message status
@@ -45,7 +48,7 @@ Admin.prototype.displayMessage = function(id, previous, firstId){
 Admin.prototype.displayImage = function(msg_id){
   var self = this;
   this.api.request("GET", "/messages/"+msg_id+"/image", function(msg){
-    $("#message-"+msg_id+" .img-thumb").empty().append("<a href=\""+msg.img+"\" data-lightbox=\"lightbox\">"
+    $("#message-"+msg_id+" .img-link").empty().append("<a href=\""+msg.img+"\" data-lightbox=\"lightbox\">"
       + "<button type='button' class='btn btn-xs btn-success'>Image</button>"
       + "</a>");
   });

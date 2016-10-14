@@ -35,23 +35,11 @@
       <div id="moderation-view" class="container">
         <h2>Modération</h2>
         <hr/>
-        <table class="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Message</th>
-                <th>Image</th>
-                <th>Username</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="messages">
-            </tbody>
-          </table>
-          <button type="button" class="btn btn-lg btn-default" style="width: 100%" onclick="messages.displayMore()">
-            Afficher plus de messages
-          </button>
+        <div id="messages">
+        </div>
+        <button type="button" class="btn btn-lg btn-default" style="width: 100%" onclick="messages.displayMore()">
+          Afficher plus de messages
+        </button>
       </div>
       <div id="settings-view" class="container" style="display: none">
         <h2>Réglages</h2>

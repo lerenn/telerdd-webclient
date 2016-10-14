@@ -19,3 +19,18 @@
   left: 0;
   right: 0;
 }
+
+#moderation-view hr {
+  margin: 0;
+}
+
+.message-id, .message-text, .message-img, .message-author, .message-status, .message-actions {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.message-text{
+  word-break: break-all;
+  display: block;
+}
