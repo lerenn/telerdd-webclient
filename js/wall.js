@@ -19,7 +19,7 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
       // If there is a message
       var text = "";
       if(msg.text != ""){
-        text += "<div class=\"message-img-txt\">"+msg.text+"</div>";
+        text += "<div class=\"message-img-txt\" style=\"display: none;\">"+msg.text+"</div>";
       }
 
       // Load image
@@ -52,6 +52,7 @@ Wall.prototype.displayImage = function(msg_id){
   this.api.request("GET", "/messages/"+msg_id+"/image", function(msg){
     $("#message-"+msg_id+" .message-img span").remove();
     $("#message-"+msg_id+" .message-img").append("<img src=\""+msg.img+"\" />");
+    $("#message-"+msg_id+" .message-img-txt").show();
   });
 }
 
