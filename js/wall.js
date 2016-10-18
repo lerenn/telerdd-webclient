@@ -16,7 +16,14 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
   this.api.request("GET", "/messages/"+id, function(msg){
     var html = "";
     if (msg.img == "true") {
-      html += "<div class=\"message-img\">Loading...</div>";
+      // If there is a message
+      var text = "";
+      if(msg.text != ""){
+        text += "<div class=\"message-img-txt\">"+msg.text+"</div>";
+      }
+
+      // Load image
+      html += "<div class=\"message-img\"><span>Loading image...</span>"+text+"</div>";
       self.displayImage(msg.id);
     } else {
       html += "<div class=\"message-text\">"+replaceSpecialChars(msg.text)+"</div>";
@@ -36,9 +43,6 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     }
     // Readapt under the "too big size"
     $("#message-"+id+" .message-text").css('font-size', (fontSize - 5) + "px" );
-
-    // Adapt text
-    $("#message-"+id+" .message-text").css('display', 'block').css('word-break', 'break-all');
     // === END ADAPT
   });
 };
@@ -46,7 +50,8 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
 Wall.prototype.displayImage = function(msg_id){
   var self = this;
   this.api.request("GET", "/messages/"+msg_id+"/image", function(msg){
-    $("#message-"+msg_id+" .message-img").empty().append("<img src=\""+msg.img+"\" />");
+    $("#message-"+msg_id+" .message-img span").remove();
+    $("#message-"+msg_id+" .message-img").append("<img src=\""+msg.img+"\" />");
   });
 }
 

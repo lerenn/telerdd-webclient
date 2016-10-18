@@ -13,13 +13,30 @@
   flex-direction: column;
 }
 
+.message-img{
+  position: relative;
+}
+
 .message-img img{
   max-height: 500px;
   max-width: 100%;
 }
 
+.message-img-txt{
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.70);
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  font-size: 20px;
+  padding-bottom: 3px;
+}
+
 .message-text {
   text-align: right;
+  word-break: keep-all;
 }
 
 .message-infos{
