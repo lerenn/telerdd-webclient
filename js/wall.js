@@ -15,32 +15,30 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
   var self = this;
   this.api.request("GET", "/messages/"+id, function(msg){
     var html = "";
-    var textClass = "col-md-10 col-sm-9 col-xs-12";
     if (msg.img == "true") {
-      textClass = "col-md-5 col-sm-5 col-xs-12";
-      html += "<div class=\"message-img col-md-5 col-sm-4 col-xs-12\">Loading...</div>";
+      html += "<div class=\"message-img\">Loading...</div>";
       self.displayImage(msg.id);
+    } else {
+      html += "<div class=\"message-text\">"+replaceSpecialChars(msg.text)+"</div>";
     }
-    html += "<div class=\"message-text "+textClass+"\"><div>"+replaceSpecialChars(msg.text)+"</div></div>";
-    html += "<div class=\"message-infos col-md-2 col-sm-3 col-xs-12\">";
-    html += "<span class=\"message-author\">par <b>"+msg.name+"</b></span><br/>";
-    html += "<span class=\"message-time\">à "+msg.time.substr(12,9)+"</span>";
+    html += "<div class=\"message-infos\">";
+    html += "<span class=\"message-author\">par <b>"+msg.name+"</b></span>";
+    html += " <span class=\"message-time\">à "+msg.time.substr(12,9)+"</span>";
     $("#message-"+id).empty().append(html);
 
     // === ADAPT TEXT SIZE
     // Get original size
-    var fontSize = parseInt($("#message-"+id+" .message-text div").css('font-size'));
+    var fontSize = parseInt($("#message-"+id+" .message-text").css('font-size'));
     // Adapt size until its too big
-    while( ($("#message-"+id+" .message-text div").width() < $("#message-"+id+" .message-text").width() && fontSize < 30)
-            || fontSize < 17) {
-        fontSize += 1;
-        $("#message-"+id+" .message-text div").css('font-size', fontSize + "px" );
+    while(($("#message-"+id+" .message-text").width()+32 < $("#messages").width() && fontSize < 60) || fontSize < 20) {
+        fontSize += 5;
+        $("#message-"+id+" .message-text").css('font-size', fontSize + "px" );
     }
     // Readapt under the "too big size"
-    $("#message-"+id+" .message-text div").css('font-size', (fontSize - 1) + "px" );
+    $("#message-"+id+" .message-text").css('font-size', (fontSize - 5) + "px" );
 
     // Adapt text
-    $("#message-"+id+" .message-text div").css('display', 'block').css('word-break', 'break-all');
+    $("#message-"+id+" .message-text").css('display', 'block').css('word-break', 'break-all');
     // === END ADAPT
   });
 };

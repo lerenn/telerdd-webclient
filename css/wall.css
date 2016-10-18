@@ -3,6 +3,14 @@
 
 #messages{
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message{
+  display:flex;
+  align-self: flex-end;
+  flex-direction: column;
 }
 
 .message-img img{
@@ -10,14 +18,11 @@
 }
 
 .message-text {
-  font-weight: bold;
-}
-
-.message-text div{
-  display: inline-block;
+  text-align: right;
 }
 
 .message-infos{
+  text-align: right;
   color: grey;
 }
 
