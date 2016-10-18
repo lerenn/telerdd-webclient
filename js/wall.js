@@ -30,7 +30,7 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     // Get original size
     var fontSize = parseInt($("#message-"+id+" .message-text").css('font-size'));
     // Adapt size until its too big
-    while(($("#message-"+id+" .message-text").width()+32 < $("#messages").width() && fontSize < 60) || fontSize < 20) {
+    while(($("#message-"+id+" .message-text").width()+32 < $("#messages").width() && fontSize < 40) || fontSize < 20) {
         fontSize += 5;
         $("#message-"+id+" .message-text").css('font-size', fontSize + "px" );
     }
