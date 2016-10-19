@@ -1,8 +1,12 @@
 /* Messages */
 /* ---------------------------------------------------------------------------*/
 
+#messages-container{
+  margin-bottom: 20px;
+}
+
 #messages{
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
