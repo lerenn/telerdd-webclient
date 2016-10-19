@@ -110,6 +110,11 @@ Messages.prototype.displayMore = function(){
     first = 0;
   }
 
+  // Check if button is still needed
+  if (first == 0){
+    $("#more-message-button").hide();
+  }
+
   // Update first
   this.firstId = this.list[first];
 

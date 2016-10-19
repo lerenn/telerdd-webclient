@@ -2,6 +2,10 @@
   margin-top: 60px;
 }
 
+#more-message-button{
+  width: 100%;
+}
+
 #settings-view{
   opacity: 0.33;
 }
