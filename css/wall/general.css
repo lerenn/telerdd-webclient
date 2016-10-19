@@ -13,7 +13,6 @@
 
 .message{
   display:flex;
-  align-self: flex-end;
   flex-direction: column;
 }
 
@@ -22,7 +21,6 @@
 }
 
 .message-img img{
-  max-height: 500px;
   max-width: 100%;
 }
 
@@ -39,13 +37,10 @@
 }
 
 .message-text {
-  text-align: right;
   word-break: keep-all;
 }
 
 .message-infos{
-  font-size: 15px;
-  text-align: right;
   color: grey;
 }
 

@@ -32,18 +32,6 @@ Wall.prototype.displayMessage = function(id, previous, firstId){
     html += "<span class=\"message-author\">par <b>"+msg.name+"</b></span>";
     html += " <span class=\"message-time\">à "+msg.time.substr(12,9)+"</span>";
     $("#message-"+id).empty().append(html);
-
-    // === ADAPT TEXT SIZE
-    // Get original size
-    var fontSize = parseInt($("#message-"+id+" .message-text").css('font-size'));
-    // Adapt size until its too big
-    while(($("#message-"+id+" .message-text").width()+32 < $("#messages").width() && fontSize < 40) || fontSize < 20) {
-        fontSize += 5;
-        $("#message-"+id+" .message-text").css('font-size', fontSize + "px" );
-    }
-    // Readapt under the "too big size"
-    $("#message-"+id+" .message-text").css('font-size', (fontSize - 5) + "px" );
-    // === END ADAPT
   });
 };
 

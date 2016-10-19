@@ -1,0 +1,17 @@
+.message-img img{
+  max-height: 300px;
+}
+
+.message-text {
+  text-align: left;
+  font-size: 25px;
+}
+
+.message-infos{
+  text-align: left;
+  font-size: 22px;
+}
+
+.message{
+  align-self: flex-start;
+}
