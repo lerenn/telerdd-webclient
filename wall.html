@@ -25,6 +25,7 @@
       </div>
     </div>
     <div id="messages-container" class="container">
+      <div id="access" class="btn btn-lg btn-warning">Rendez vous sur <span></span> !</div>
       <div id="messages"></div>
       <button id="more-message-button" type="button" class="btn btn-lg btn-warning" onclick="messages.displayMore()">
         Afficher plus de messages
@@ -51,6 +52,8 @@
         messages.checkNewMsg();
         messages.updateList();
       });
+
+      $("#access span").append(window.location.hostname);
     </script>
   </body>
 </html>
