@@ -17,8 +17,10 @@
 }
 
 #access{
+  font-weight: bold;
   background-color: orange;
-  float: right;
+  position: absolute;
   font-size: 25px;
-  margin-top: 20px;
+  right: 0;
+  bottom: 100px;
 }
