@@ -19,8 +19,8 @@
         <a href="/wall.html">
           <button type="button" class="center-menu-element btn btn-lg btn-default">Voir le mur</button>
         </a>
-        <a href="http://rdd2016.fr" target="_BLANK">
-          <button type="button" class="center-menu-element btn btn-lg btn-default">Site officiel</button>
+        <a id="official-website" href="#" target="_BLANK">
+          <button disabled type="button" class="center-menu-element btn btn-lg btn-default">Site officiel</button>
         </a>
       </div>
     </div>
@@ -34,5 +34,13 @@
     </footer>
     <script src="contrib/jquery/jquery-3.1.0.min.js"></script>
     <script src="contrib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="config/config.js"></script>
+    <script>
+      config = new Config();
+      if (config.officialWebsite != "") {
+        $("#official-website button").prop('disabled', false);
+        $("#official-website").attr("href", config.officialWebsite);
+      }
+    </script>
   </body>
 </html>
